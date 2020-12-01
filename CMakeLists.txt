@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 
+set(
+    CMAKE_TOOLCHAIN_FILE
+    ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
+    CACHE STRING "Vcpkg toolchain file"
+)
+
 project( AdventOfCode2020 
     DESCRIPTION
     "A set of solutions programmed in C++ for the Advent Of Code 2020"
@@ -21,7 +27,7 @@ endmacro()
 add_subdirectory(helpers)
 
 # Add anti regression tests
-# add_subdirectory(tests)
+add_subdirectory(tests)
 
 # Executables for each day
 add_subdirectory(calendar/1_ReportRepair)

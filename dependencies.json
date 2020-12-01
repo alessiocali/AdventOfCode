@@ -1,0 +1,13 @@
+{
+    "dependencies" : 
+    [
+        {   
+            "name" : "SFML",
+            "VCPKG-ID" : "sfml"
+        },
+        {
+            "name" : "Catch2",
+            "VCPKG-ID" : "catch2"
+        }
+    ]
+}

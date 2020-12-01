@@ -3,8 +3,8 @@ add_library( Helpers
     include/MathHelpers.h
     include/ProblemSolver.h
 
-    # include/SimpleControllableView.h
-    # src/SimpleControllableView.cpp
+    include/SimpleControllableView.h
+    src/SimpleControllableView.cpp
 
     include/CommonHelpers.h
     src/CommonHelpers.cpp
@@ -20,14 +20,16 @@ target_compile_features( Helpers
     cxx_std_17
 )
 
-# target_link_libraries( Helpers 
-#     PUBLIC 
-#     sfml-system 
-#     sfml-window 
-#     sfml-graphics 
-    
-#     Boost::boost
+find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
-#     PRIVATE
-#     Boost::program_options
-# )
+target_link_libraries( Helpers 
+    PUBLIC 
+    sfml-system 
+    sfml-window 
+    sfml-graphics 
+    
+    # Boost::boost
+
+    PRIVATE
+    # Boost::program_options
+)
