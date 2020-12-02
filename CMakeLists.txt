@@ -31,3 +31,4 @@ add_subdirectory(tests)
 
 # Executables for each day
 add_subdirectory(calendar/1_ReportRepair)
+add_subdirectory(calendar/2_PasswordPhilosophy)

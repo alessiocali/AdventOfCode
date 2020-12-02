@@ -20,7 +20,8 @@ target_compile_features( Helpers
     cxx_std_17
 )
 
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
+find_package(SFML CONFIG REQUIRED COMPONENTS system window graphics)
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 target_link_libraries( Helpers 
     PUBLIC 
@@ -28,8 +29,8 @@ target_link_libraries( Helpers
     sfml-window 
     sfml-graphics 
     
-    # Boost::boost
+    Boost::boost
 
     PRIVATE
-    # Boost::program_options
+    Boost::program_options
 )

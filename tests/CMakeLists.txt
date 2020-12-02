@@ -6,6 +6,9 @@ add_executable(
 
     ${CalendarDir}/1_ReportRepair/ReportRepairSolver.h
     ${CalendarDir}/1_ReportRepair/ReportRepairSolver.cpp
+
+    ${CalendarDir}/2_PasswordPhilosophy/PasswordPhilosophySolver.h
+    ${CalendarDir}/2_PasswordPhilosophy/PasswordPhilosophySolver.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
@@ -23,6 +26,8 @@ target_include_directories(
     
     PRIVATE
     ${CalendarDir}/1_ReportRepair
+    ${CalendarDir}/2_PasswordPhilosophy
 )
 
 file ( COPY ${CalendarDir}/1_ReportRepair/ReportRepair_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
+file ( COPY ${CalendarDir}/2_PasswordPhilosophy/PasswordPhilosophy_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )

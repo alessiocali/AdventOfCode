@@ -8,6 +8,10 @@
         {
             "name" : "Catch2",
             "VCPKG-ID" : "catch2"
+        },
+        {
+            "name" : "Boost::ProgramOptions",
+            "VCPKG-ID" : "boost-program-options"
         }
     ]
 }
