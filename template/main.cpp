@@ -1,4 +1,5 @@
 #include <||PROBLEM_SOLVER||.h>
+#include <CommonHelpers.h>
 
 int main(int argc, char** argv)
 {
