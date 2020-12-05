@@ -4,6 +4,8 @@
 #include <ReportRepairSolver.h>
 #include <PasswordPhilosophySolver.h>
 #include <TobogganTrajectorySolver.h>
+#include <PassportProcessingSolver.h>
+#include <BinaryBoardingSolver.h>
 
 template<typename Solver, typename InputType, typename SolutionAType, typename SolutionBType>
 void ValidateProblem(InputType input, const SolutionAType& solutionA, const SolutionBType& solutionB)
@@ -31,4 +33,16 @@ TEST_CASE("TobogganTrajectory")
 {
     constexpr const char* input = "inputs/TobogganTrajectory_Input.txt";
     ValidateProblem<TobogganTrajectorySolver, std::string>(input, 153, 2421944712);
+}
+
+TEST_CASE("PassportProcessing")
+{
+    constexpr const char* input = "inputs/PassportProcessing_Input.txt";
+    ValidateProblem<PassportProcessingSolver, std::string>(input, 233, 111);
+}
+
+TEST_CASE("BinaryBoarding")
+{
+    constexpr const char* input = "inputs/BinaryBoarding_Input.txt";
+    ValidateProblem<BinaryBoardingSolver, std::string>(input, 871, 640);
 }
