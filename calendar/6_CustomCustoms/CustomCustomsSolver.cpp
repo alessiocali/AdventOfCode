@@ -9,7 +9,6 @@ void CustomCustomsSolver::Init(std::string& input)
     Group* current = nullptr;
     std::ifstream inputStream(input);
     std::string temp;
-    bool doAllSetInit = true;
     std::bitset<QUESTION_COUNT> tempSetForUser;
     while (std::getline(inputStream, temp))
     {
@@ -22,7 +21,7 @@ void CustomCustomsSolver::Init(std::string& input)
         if (current == nullptr)
         {
             current = &m_Problem.emplace_back();
-            doAllSetInit = true;
+            current->m_AllAnswered.set();
         }
 
         for (const char question : temp)
@@ -32,18 +31,7 @@ void CustomCustomsSolver::Init(std::string& input)
             tempSetForUser.set(idx);
         }
 
-        if (doAllSetInit)
-        {
-            // First user, do initialization
-            current->m_AllAnswered = tempSetForUser;
-        }
-        else
-        {
-            // Next users, AND with current set
-            current->m_AllAnswered &= tempSetForUser;
-        }
-
-        doAllSetInit = false;
+        current->m_AllAnswered &= tempSetForUser;
         tempSetForUser.reset();
     }
 }
