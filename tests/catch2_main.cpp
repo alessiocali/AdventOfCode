@@ -6,6 +6,7 @@
 #include <TobogganTrajectorySolver.h>
 #include <PassportProcessingSolver.h>
 #include <BinaryBoardingSolver.h>
+#include <CustomCustomsSolver.h>
 
 template<typename Solver, typename InputType, typename SolutionAType, typename SolutionBType>
 void ValidateProblem(InputType input, const SolutionAType& solutionA, const SolutionBType& solutionB)
@@ -45,4 +46,10 @@ TEST_CASE("BinaryBoarding")
 {
     constexpr const char* input = "inputs/BinaryBoarding_Input.txt";
     ValidateProblem<BinaryBoardingSolver, std::string>(input, 871, 640);
+}
+
+TEST_CASE("CustomCustoms")
+{
+    constexpr const char* input = "inputs/CustomCustoms_Input.txt";
+    ValidateProblem<CustomCustomsSolver, std::string>(input, 6885, 3550);
 }

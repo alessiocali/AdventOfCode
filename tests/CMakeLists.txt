@@ -18,6 +18,9 @@ add_executable(
 
     ${CalendarDir}/5_BinaryBoarding/BinaryBoardingSolver.h
     ${CalendarDir}/5_BinaryBoarding/BinaryBoardingSolver.cpp
+
+    ${CalendarDir}/6_CustomCustoms/CustomCustomsSolver.h
+    ${CalendarDir}/6_CustomCustoms/CustomCustomsSolver.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
@@ -39,6 +42,7 @@ target_include_directories(
     ${CalendarDir}/3_TobogganTrajectory
     ${CalendarDir}/4_PassportProcessing
     ${CalendarDir}/5_BinaryBoarding
+    ${CalendarDir}/6_CustomCustoms
 )
 
 file ( COPY ${CalendarDir}/1_ReportRepair/ReportRepair_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
@@ -46,3 +50,4 @@ file ( COPY ${CalendarDir}/2_PasswordPhilosophy/PasswordPhilosophy_Input.txt DES
 file ( COPY ${CalendarDir}/3_TobogganTrajectory/TobogganTrajectory_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/4_PassportProcessing/PassportProcessing_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/5_BinaryBoarding/BinaryBoarding_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
+file ( COPY ${CalendarDir}/6_CustomCustoms/CustomCustoms_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
