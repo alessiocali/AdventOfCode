@@ -21,6 +21,12 @@ add_executable(
 
     ${CalendarDir}/6_CustomCustoms/CustomCustomsSolver.h
     ${CalendarDir}/6_CustomCustoms/CustomCustomsSolver.cpp
+
+    ${CalendarDir}/7_HandyHaversacks/HandyHaversacksSolver.h
+    ${CalendarDir}/7_HandyHaversacks/HandyHaversacksSolver.cpp
+
+    ${CalendarDir}/8_HandheldHalting/HandheldHaltingSolver.h
+    ${CalendarDir}/8_HandheldHalting/HandheldHaltingSolver.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
@@ -43,6 +49,8 @@ target_include_directories(
     ${CalendarDir}/4_PassportProcessing
     ${CalendarDir}/5_BinaryBoarding
     ${CalendarDir}/6_CustomCustoms
+    ${CalendarDir}/7_HandyHaversacks
+    ${CalendarDir}/8_HandheldHalting
 )
 
 file ( COPY ${CalendarDir}/1_ReportRepair/ReportRepair_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
@@ -51,3 +59,5 @@ file ( COPY ${CalendarDir}/3_TobogganTrajectory/TobogganTrajectory_Input.txt DES
 file ( COPY ${CalendarDir}/4_PassportProcessing/PassportProcessing_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/5_BinaryBoarding/BinaryBoarding_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/6_CustomCustoms/CustomCustoms_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
+file ( COPY ${CalendarDir}/7_HandyHaversacks/HandyHaversacks_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
+file ( COPY ${CalendarDir}/8_HandheldHalting/HandheldHalting_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )

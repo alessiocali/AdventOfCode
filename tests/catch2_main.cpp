@@ -7,6 +7,8 @@
 #include <PassportProcessingSolver.h>
 #include <BinaryBoardingSolver.h>
 #include <CustomCustomsSolver.h>
+#include <HandyHaversacksSolver.h>
+#include <HandheldHaltingSolver.h>
 
 template<typename Solver, typename InputType, typename SolutionAType, typename SolutionBType>
 void ValidateProblem(InputType input, const SolutionAType& solutionA, const SolutionBType& solutionB)
@@ -52,4 +54,16 @@ TEST_CASE("CustomCustoms")
 {
     constexpr const char* input = "inputs/CustomCustoms_Input.txt";
     ValidateProblem<CustomCustomsSolver, std::string>(input, 6885, 3550);
+}
+
+TEST_CASE("Handy Haversacks")
+{
+    constexpr const char* input = "inputs/HandyHaversacks_Input.txt";
+    ValidateProblem<HandyHaversacksSolver, std::string>(input, 169, 82372);
+}
+
+TEST_CASE("Handheld Halting")
+{
+    constexpr const char* input = "inputs/HandheldHalting_Input.txt";
+    ValidateProblem<HandheldHaltingSolver, std::string>(input, 1200, 1023);
 }
