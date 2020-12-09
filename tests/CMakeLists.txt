@@ -27,6 +27,9 @@ add_executable(
 
     ${CalendarDir}/8_HandheldHalting/HandheldHaltingSolver.h
     ${CalendarDir}/8_HandheldHalting/HandheldHaltingSolver.cpp
+
+    ${CalendarDir}/9_EncodingError/EncodingErrorSolver.h
+    ${CalendarDir}/9_EncodingError/EncodingErrorSolver.cpp
 )
 
 find_package(Catch2 CONFIG REQUIRED)
@@ -51,6 +54,7 @@ target_include_directories(
     ${CalendarDir}/6_CustomCustoms
     ${CalendarDir}/7_HandyHaversacks
     ${CalendarDir}/8_HandheldHalting
+    ${CalendarDir}/9_EncodingError
 )
 
 file ( COPY ${CalendarDir}/1_ReportRepair/ReportRepair_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
@@ -61,3 +65,4 @@ file ( COPY ${CalendarDir}/5_BinaryBoarding/BinaryBoarding_Input.txt DESTINATION
 file ( COPY ${CalendarDir}/6_CustomCustoms/CustomCustoms_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/7_HandyHaversacks/HandyHaversacks_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
 file ( COPY ${CalendarDir}/8_HandheldHalting/HandheldHalting_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )
+file ( COPY ${CalendarDir}/9_EncodingError/EncodingError_Input.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/inputs/ )

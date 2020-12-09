@@ -9,6 +9,7 @@
 #include <CustomCustomsSolver.h>
 #include <HandyHaversacksSolver.h>
 #include <HandheldHaltingSolver.h>
+#include <EncodingErrorSolver.h>
 
 template<typename Solver, typename InputType, typename SolutionAType, typename SolutionBType>
 void ValidateProblem(InputType input, const SolutionAType& solutionA, const SolutionBType& solutionB)
@@ -66,4 +67,10 @@ TEST_CASE("Handheld Halting")
 {
     constexpr const char* input = "inputs/HandheldHalting_Input.txt";
     ValidateProblem<HandheldHaltingSolver, std::string>(input, 1200, 1023);
+}
+
+TEST_CASE("Encoding Error")
+{
+    constexpr const char* input = "inputs/EncodingError_Input.txt";
+    ValidateProblem<EncodingErrorSolver, std::string>(input, 3199139634, 438559930);
 }
