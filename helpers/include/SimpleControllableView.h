@@ -6,6 +6,10 @@
 
 class SimpleControllableView
 {
+private:
+    inline static void DefaultUpdateCallback(sf::RenderWindow&) { };
+    inline static bool DefaultClosedCallback() { return false; }
+
 public:
 	struct SpeedParameters
 	{
@@ -18,8 +22,16 @@ public:
 	inline void SetBackgroundColor(sf::Color color) { m_BackgroundColor = color; }
 	inline void SetSpeedParameters(SpeedParameters params) { m_SpeedParameters = params; }
 
-	template<typename DrawCallback, typename UpdateCallback>
-	void RunUntilClosed(DrawCallback drawCallback, UpdateCallback updateCallback)
+	template<
+		typename DrawCallback, 
+		typename UpdateCallback = decltype(&SimpleControllableView::DefaultUpdateCallback), 
+		typename ClosedCallback = decltype(&SimpleControllableView::DefaultClosedCallback)
+	>
+	void RunUntilClosed(
+		DrawCallback drawCallback,
+		UpdateCallback updateCallback = &SimpleControllableView::DefaultUpdateCallback,
+		ClosedCallback closedCallback = &SimpleControllableView::DefaultClosedCallback
+	)
 	{
 		while (m_Window.isOpen())
 		{
@@ -32,6 +44,11 @@ public:
 
 			drawCallback(m_Window);
 			m_Window.display();
+
+			if (closedCallback())
+			{
+				m_Window.close();
+			}
 		}
 	}
 

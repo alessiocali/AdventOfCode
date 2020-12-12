@@ -2,13 +2,25 @@
 
 #include <iostream>
 
-template<typename Solver, typename InputType>
-void SolveProblemAndDisplay(InputType input)
+enum class RunType
 {
-    Solver solver;
+    Debug, // Development
+    Run,   // Fast-execution, no debug display
+    Test   // Testing only, no need to display anything
+};
+
+template<typename Solver, typename InputType>
+void SolveProblemAndDisplay(InputType input, bool doDebug = false)
+{
+    Solver solver { };
+    solver.SetRunType(doDebug ? RunType::Debug : RunType::Run);
     solver.Init(input);
     solver.OutputResult();
-	solver.DebugDisplay();
+
+    if (solver.IsDebugging())
+    {
+        solver.DebugDisplay();
+    }
 }
 
 template<typename InputType, typename SolutionAType, typename SolutionBType>
@@ -29,4 +41,10 @@ public:
         std::cout << "Solution of Problem A: " << solutionA << std::endl;
         std::cout << "Solution of Problem B: " << solutionB << std::endl;
     }
+
+    inline void SetRunType(RunType runType) { m_RunType = runType; }
+    inline bool IsDebugging() const { return m_RunType == RunType::Debug; }
+
+private:
+    RunType m_RunType;
 };

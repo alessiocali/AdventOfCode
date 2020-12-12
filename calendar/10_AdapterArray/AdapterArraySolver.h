@@ -3,6 +3,7 @@
 #include <ProblemSolver.h>
 
 #include <vector>
+#include <unordered_set>
 
 std::uint64_t Factorial(std::uint64_t val);
 

@@ -14,27 +14,29 @@ Position Position::IntNormalize() const
 
 std::string SimpleGetInputFileFromArgs(int argc, char** argv)
 {
+	return SimpleGetProgramArgs(argc, argv).m_InputFile;
+}
+
+SimpleProgramArgs SimpleGetProgramArgs(int argc, char** argv)
+{
 	constexpr const char* AD_Input = "input,i";
 	constexpr const char* AN_Input = "input";
 
+	constexpr const char* AD_Debug = "debug,d";
+	constexpr const char* AN_Debug = "debug";
+
+	SimpleProgramArgs args;
+
 	bpo::options_description optionsDescription("Allowed options");
 	optionsDescription.add_options()
-		(AD_Input, bpo::value<std::string>(), "Problem input");
+		(AD_Input, bpo::value<std::string>(&args.m_InputFile)->required(), "Problem input")
+		(AD_Debug, bpo::bool_switch(&args.m_Debug), "Debug Run");
 
 	bpo::variables_map varMap;
 	bpo::store(bpo::parse_command_line(argc, argv, optionsDescription), varMap);
 	bpo::notify(varMap);
 
-	if (!varMap.count(AN_Input))
-	{
-		std::cerr << "Missing input argument" << std::endl;
-		std::cout << optionsDescription << std::endl;
-		return "";
-	}
-	else
-	{
-		return varMap[AN_Input].as<std::string>();
-	}
+	return args;
 }
 
 std::vector<uint> DecomposeInDigits(uint value)

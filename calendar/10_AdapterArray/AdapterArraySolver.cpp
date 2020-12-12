@@ -50,46 +50,45 @@ std::uint32_t AdapterArraySolver::SolveProblemA() const
 
 std::uint64_t AdapterArraySolver::SolveProblemB() const
 {
-    const std::uint64_t removable = CountRemovableAdapters(std::unordered_set<std::uint32_t> {} );
-    return Factorial(removable) + 1;
-    // TODO
+    return 0;
 }
 
 std::uint64_t AdapterArraySolver::CountRemovableAdapters(std::unordered_set<uint32_t>& holes) const
 {
-    std::vector<std::uint32_t> removables;
+    return 0;
+    //std::vector<std::uint32_t> removables;
 
-    auto current = m_Problem.cbegin() + 1;
+    //auto current = m_Problem.cbegin() + 1;
 
-    while (current != m_Problem.cend())
-    {
-        current++;
-        if (current == m_Problem.cend())
-        {
-            break;
-        }
+    //while (current != m_Problem.cend())
+    //{
+    //    current++;
+    //    if (current == m_Problem.cend())
+    //    {
+    //        break;
+    //    }
 
-        if (holes.count(*current) || holes.count)
-        {
-            continue;
-        }
+    //    if (holes.count(*current) || holes.count)
+    //    {
+    //        continue;
+    //    }
 
-        std::uint32_t gap = *current - *(current - 2);
-        if (gap <= 3)
-        {
-            removables.push_back(*(current - 1));
-        }
-    }
+    //    std::uint32_t gap = *current - *(current - 2);
+    //    if (gap <= 3)
+    //    {
+    //        removables.push_back(*(current - 1));
+    //    }
+    //}
 
-    if (removables.empty())
-    {
-        return 1;
-    }
+    //if (removables.empty())
+    //{
+    //    return 1;
+    //}
 
-    std::uint64_t combinations { 0 };
-    for (std::uint32_t val : removables)
-    {
-        std::unordered_set<std::uint32_t> newHoles(holes);
-        newHoles.insert(val);
-    }
+    //std::uint64_t combinations { 0 };
+    //for (std::uint32_t val : removables)
+    //{
+    //    std::unordered_set<std::uint32_t> newHoles(holes);
+    //    newHoles.insert(val);
+    //}
 }

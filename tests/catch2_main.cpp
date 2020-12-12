@@ -10,11 +10,14 @@
 #include <HandyHaversacksSolver.h>
 #include <HandheldHaltingSolver.h>
 #include <EncodingErrorSolver.h>
+#include <AdapterArraySolver.h>
+#include <SeatingSystemSolver.h>
 
 template<typename Solver, typename InputType, typename SolutionAType, typename SolutionBType>
 void ValidateProblem(InputType input, const SolutionAType& solutionA, const SolutionBType& solutionB)
 {
-	Solver solver;
+    Solver solver { };
+    solver.SetRunType(RunType::Test);
 	solver.Init(input);
 
 	REQUIRE(solver.SolveProblemA() == solutionA);
@@ -57,20 +60,33 @@ TEST_CASE("CustomCustoms")
     ValidateProblem<CustomCustomsSolver, std::string>(input, 6885, 3550);
 }
 
-TEST_CASE("Handy Haversacks")
+TEST_CASE("HandyHaversacks")
 {
     constexpr const char* input = "inputs/HandyHaversacks_Input.txt";
     ValidateProblem<HandyHaversacksSolver, std::string>(input, 169, 82372);
 }
 
-TEST_CASE("Handheld Halting")
+TEST_CASE("HandheldHalting")
 {
     constexpr const char* input = "inputs/HandheldHalting_Input.txt";
     ValidateProblem<HandheldHaltingSolver, std::string>(input, 1200, 1023);
 }
 
-TEST_CASE("Encoding Error")
+TEST_CASE("EncodingError")
 {
     constexpr const char* input = "inputs/EncodingError_Input.txt";
     ValidateProblem<EncodingErrorSolver, std::string>(input, 3199139634, 438559930);
+}
+
+TEST_CASE("AdapterArray")
+{
+    // TODO: Part 2
+    constexpr const char* input = "inputs/AdapterArray_Input.txt";
+    ValidateProblem<AdapterArraySolver, std::string>(input, 3034, 0);
+}
+
+TEST_CASE("SeatingSystem")
+{
+    constexpr const char* input = "inputs/SeatingSystem_Input.txt";
+    ValidateProblem<SeatingSystemSolver, std::string>(input, 2344, 2076);
 }

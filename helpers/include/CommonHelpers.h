@@ -5,7 +5,14 @@
 #include <string>
 #include <vector>
 
+struct SimpleProgramArgs
+{
+    std::string m_InputFile { };
+    bool m_Debug { false };
+};
+
 std::string SimpleGetInputFileFromArgs(int argc, char** argv);
+SimpleProgramArgs SimpleGetProgramArgs(int argc, char** argv);
 std::vector<uint> DecomposeInDigits(uint value);
 
 template<typename T, std::enable_if_t<std::is_integral_v<T>, bool> = 0>
