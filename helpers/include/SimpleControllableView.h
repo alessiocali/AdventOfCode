@@ -13,16 +13,18 @@ public:
 		float m_ZoomSpeed;
 	};
 
-	SimpleControllableView(sf::VideoMode videoMode, sf::String title, SpeedParameters params = { 1.f, 1.f });
+	SimpleControllableView(sf::VideoMode videoMode, sf::String title, unsigned int framerateLimit = 60, SpeedParameters params = { 1.f, 4.f });
 
 	inline void SetBackgroundColor(sf::Color color) { m_BackgroundColor = color; }
 	inline void SetSpeedParameters(SpeedParameters params) { m_SpeedParameters = params; }
 
-	template<typename DrawCallback>
-	void RunUntilClosed(DrawCallback drawCallback)
+	template<typename DrawCallback, typename UpdateCallback>
+	void RunUntilClosed(DrawCallback drawCallback, UpdateCallback updateCallback)
 	{
 		while (m_Window.isOpen())
 		{
+			updateCallback(m_Window);
+
 			ClearWindow();
 			ProcessEvents();
 			UpdateInputs();
@@ -42,7 +44,7 @@ private:
 	sf::RenderWindow m_Window;
 	sf::Color m_BackgroundColor = sf::Color::White;
 
-	sf::Vector2f m_ViewCenter { 0.f, 0.f };
+	sf::Vector2f m_ViewCenter { 0.5f, 0.5f };
 	float m_ZoomLevel = 1.f;
 	
 	SpeedParameters m_SpeedParameters;

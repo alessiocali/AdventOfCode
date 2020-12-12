@@ -1,9 +1,9 @@
 #include <SimpleControllableView.h>
 
-SimpleControllableView::SimpleControllableView(sf::VideoMode videoMode, sf::String title, SpeedParameters speedParameters)
+SimpleControllableView::SimpleControllableView(sf::VideoMode videoMode, sf::String title, unsigned int framerateLimit, SpeedParameters speedParameters)
 	: m_Window(videoMode, title), m_SpeedParameters(speedParameters)
 {
-	m_Window.setFramerateLimit(60);
+	m_Window.setFramerateLimit(framerateLimit);
 }
 
 void SimpleControllableView::UpdateView()
