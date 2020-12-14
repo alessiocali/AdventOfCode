@@ -345,3 +345,6 @@ build
 
 # VSCode generated files
 .vscode
+
+# Other stuff
+TimeLeft.txt
