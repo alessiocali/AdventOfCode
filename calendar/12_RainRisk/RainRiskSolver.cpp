@@ -154,5 +154,53 @@ std::uint32_t RainRiskSolver::SolveProblemA() const
 
 std::uint32_t RainRiskSolver::SolveProblemB() const
 {
-    return 0;
+    sf::Vector2i currentPosition { 0, 0 };
+    sf::Vector2i waypointPosition { 10, 1 };
+
+    std::size_t idx { 0 };
+    auto update = [&]()
+    {
+        auto& currentInstruction = m_Problem[idx++];
+        switch (currentInstruction.m_Type)
+        {
+        case InstructionType::MoveCardinal:
+            waypointPosition += currentInstruction.m_Direction * currentInstruction.m_Value;
+            break;
+        case InstructionType::Forward:
+            currentPosition += waypointPosition * currentInstruction.m_Value; // The waypoint is relative to the ship
+            break;
+        case InstructionType::Rotate:
+            // Don't ask me why I wrote this garbage. I need sleep.
+
+            int amount = currentInstruction.m_Value;
+            if (amount > 180) { amount -= 360; }
+            if (amount < -180) { amount += 360; }
+
+            if (amount == 90)
+            {
+                std::swap(waypointPosition.x, waypointPosition.y);
+                waypointPosition.x *= -1;
+            }
+            else if (amount == 180 || amount == -180) { waypointPosition *= -1; }
+            else if (amount == -90)
+            {
+                waypointPosition *= -1;
+                std::swap(waypointPosition.x, waypointPosition.y);
+                waypointPosition.x *= -1;
+            }
+            else
+            {
+                assert(false && "Unexpected value");
+            }
+
+            break;
+        }
+    };
+
+    while (idx < m_Problem.size())
+    {
+        update();
+    }
+
+    return std::abs(currentPosition.x) + std::abs(currentPosition.y);
 }
