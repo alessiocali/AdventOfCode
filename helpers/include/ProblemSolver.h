@@ -46,5 +46,5 @@ public:
     inline bool IsDebugging() const { return m_RunType == RunType::Debug; }
 
 private:
-    RunType m_RunType;
+    RunType m_RunType { RunType::Run };
 };
