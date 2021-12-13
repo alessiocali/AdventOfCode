@@ -11,3 +11,4 @@ include(${COMMON_ROOT_DIR}/CommonBody.cmake)
 
 add_subdirectory(1_SonarSweep)
 add_subdirectory(2_Dive)
+add_subdirectory(3_BinaryDiagnostic)
