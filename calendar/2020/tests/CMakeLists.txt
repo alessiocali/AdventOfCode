@@ -1,4 +1,4 @@
-set (CalendarDir ${CMAKE_SOURCE_DIR}/calendar)
+set (CalendarDir ${CMAKE_SOURCE_DIR})
 
 add_executable(
     Tests

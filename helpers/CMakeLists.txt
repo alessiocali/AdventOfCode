@@ -17,7 +17,7 @@ target_include_directories( Helpers
 
 target_compile_features( Helpers
     PUBLIC
-    cxx_std_17
+    cxx_std_20
 )
 
 find_package(SFML CONFIG REQUIRED COMPONENTS system window graphics)
