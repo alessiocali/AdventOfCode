@@ -1,4 +1,4 @@
-# Advent Of Code 2020
+# Advent Of Code
 
  This repository will hold my implementation for the solutions (in C++20) of the Advent Of Code challenges, starting from year 2020. If you don't know what it is, check it out, it's pretty cool: https://adventofcode.com/
 
