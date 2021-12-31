@@ -22,6 +22,7 @@ target_compile_features( Helpers
 
 find_package(SFML CONFIG REQUIRED COMPONENTS system window graphics)
 find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(range-v3 CONFIG REQUIRED)
 
 target_link_libraries( Helpers 
     PUBLIC 
@@ -30,6 +31,9 @@ target_link_libraries( Helpers
     sfml-graphics 
     
     Boost::boost
+
+    range-v3
+    range-v3-concepts
 
     PRIVATE
     Boost::program_options

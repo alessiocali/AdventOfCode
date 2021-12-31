@@ -1,0 +1,15 @@
+set ( TargetName 9_SmokeBasin )
+
+add_executable(
+    ${TargetName}
+    main.cpp
+
+    SmokeBasinSolver.h
+    SmokeBasinSolver.cpp
+)
+
+target_include_directories( ${TargetName} PRIVATE / )
+target_link_libraries( ${TargetName} PRIVATE Helpers )
+
+add_copy_input_command( ${TargetName} SmokeBasin_Input.txt )
+add_copy_input_command( ${TargetName} Test_Input.txt )

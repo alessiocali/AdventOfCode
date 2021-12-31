@@ -12,6 +12,10 @@
         {
             "name" : "Boost::ProgramOptions",
             "VCPKG-ID" : "boost-program-options"
+        },
+        {
+            "name" : "Range V3",
+            "VCPKG-ID" : "range-v3"
         }
     ]
 }
