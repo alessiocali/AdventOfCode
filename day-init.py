@@ -18,9 +18,11 @@ targetSolverCpp = targetDir / "{}.cpp".format(problemSolverName)
 targetSolverH = targetDir / "{}.h".format(problemSolverName)
 targetMain = targetDir / "main.cpp"
 targetInput = targetDir / inputFileName
+targetTestInput = targetDir / "Test_Input.txt"
 targetCMake = targetDir / "CMakeLists.txt"
 
 targetInput.open("w").close()
+targetTestInput.open("w").close()
 
 templateDir = pathlib.Path().cwd() / "template"
 
