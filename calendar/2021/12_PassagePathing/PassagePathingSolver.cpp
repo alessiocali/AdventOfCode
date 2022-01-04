@@ -37,52 +37,56 @@ namespace aoc2021::PassagePathing
     std::size_t PassagePathingSolver::SolveProblemA() const
     {
         PathSearcher pathSearcher;
-        return pathSearcher.CountPaths(m_Map, PathSearcher::SearchType::SmallCavesOnce);
+        SmallCavesOncePolicy policy;
+        return pathSearcher.CountPaths(m_Map, policy);
     }
 
     std::size_t PassagePathingSolver::SolveProblemB() const
     {
         PathSearcher pathSearcher;
-        return pathSearcher.CountPaths(m_Map, PathSearcher::SearchType::OneSmallCaveTwice);
+        OneSmallCaveTwicePolicy policy;
+        return pathSearcher.CountPaths(m_Map, policy);
     }
 
-    std::size_t PathSearcher::CountPaths(const Map& map, const SearchType searchType)
+    std::size_t PathSearcher::CountPaths(const Map& map, ISearchPolicy& policy)
     {
-        Reset(searchType);
+        policy.Reset();
+        Reset();
+
         while (!m_ExplorationHistory.empty())
         {
             const CaveID& nextCaveID = m_ExplorationHistory.top();
             const Cave& nextCave = map.at(nextCaveID);
-
-            if (nextCave.IsEnd())
-            {
-                EndReached();
-                continue;
-            }
-
-            if (IsPathBack(nextCave))
-            {
-                AllSubPathsExplored(nextCave);
-                continue;
-            }
-
-            if (IsAlreadyVisited(nextCave) && !TryVisitAgain(nextCave))
-            {
-                AlreadyVisited();
-                continue;
-            }
-
-            Expand(nextCave);
+            ExploreCave(nextCave, policy);
         }
 
         return m_FoundPaths;
     }
 
-    void PathSearcher::Reset(const SearchType searchType)
+    void PathSearcher::ExploreCave(const Cave& nextCave, ISearchPolicy& policy)
     {
-        m_UseSpecialCave = (searchType == SearchType::OneSmallCaveTwice);
-        m_VisitedSmallCaves.clear();
-        m_SpecialCaveID.reset();
+        if (nextCave.IsEnd())
+        {
+            EndReached();
+        }
+        else if (IsPathBack(nextCave))
+        {
+            policy.OnAllSubPathsExplored(nextCave);
+            AllSubPathsExplored(nextCave);
+        }
+        else if (!policy.TryVisit(nextCave))
+        {
+            AlreadyVisited();
+        }
+        else
+        {
+            policy.OnVisit(nextCave);
+            Visit(nextCave);
+        }
+    }
+
+    void PathSearcher::Reset()
+    {
         m_FoundPaths = 0;
         m_CurrentPath.clear();
 
@@ -103,35 +107,8 @@ namespace aoc2021::PassagePathing
 
     void PathSearcher::AllSubPathsExplored(const Cave& subPathsRoot)
     {
-        if (m_UseSpecialCave && m_SpecialCaveID == subPathsRoot.m_ID)
-        {
-            m_SpecialCaveID.reset();
-        }
-        else
-        {
-            m_VisitedSmallCaves.erase(subPathsRoot.m_ID);
-        }
-
         m_CurrentPath.pop_back();
         m_ExplorationHistory.pop();
-    }
-
-    bool PathSearcher::IsAlreadyVisited(const Cave& cave) const
-    {
-        return m_VisitedSmallCaves.contains(cave.m_ID);
-    }
-
-    bool PathSearcher::TryVisitAgain(const Cave& cave)
-    {
-        if (m_UseSpecialCave && !cave.IsStart() && !m_SpecialCaveID.has_value())
-        {
-            m_SpecialCaveID = cave.m_ID;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     void PathSearcher::AlreadyVisited()
@@ -139,18 +116,71 @@ namespace aoc2021::PassagePathing
         m_ExplorationHistory.pop();
     }
 
-    void PathSearcher::Expand(const Cave& cave)
+    void PathSearcher::Visit(const Cave& cave)
     {
         m_CurrentPath.emplace_back(cave.m_ID);
+        for (const CaveID& connection : cave.m_Connections)
+        {
+            m_ExplorationHistory.push(connection);
+        }
+    }
 
+    void SmallCavesOncePolicy::Reset()
+    {
+        m_VisitedSmallCaves.clear();
+    }
+
+    void SmallCavesOncePolicy::OnAllSubPathsExplored(const Cave& subPathRoot)
+    {
+        m_VisitedSmallCaves.erase(subPathRoot.m_ID);
+    }
+
+    bool SmallCavesOncePolicy::TryVisit(const Cave& cave)
+    {
+        return !m_VisitedSmallCaves.contains(cave.m_ID);
+    }
+
+    void SmallCavesOncePolicy::OnVisit(const Cave& cave)
+    {
         if (cave.IsSmall())
         {
             m_VisitedSmallCaves.insert(cave.m_ID);
         }
+    }
 
-        for (const CaveID& connection : cave.m_Connections)
+    void OneSmallCaveTwicePolicy::Reset()
+    {
+        m_VisitedSmallCaves.clear();
+        m_SpecialCaveID.reset();
+    }
+
+    void OneSmallCaveTwicePolicy::OnAllSubPathsExplored(const Cave& subPathsRoot)
+    {
+        if (m_SpecialCaveID == subPathsRoot.m_ID)
         {
-            m_ExplorationHistory.push(connection);
+            m_SpecialCaveID.reset();
+        }
+        else
+        {
+            m_VisitedSmallCaves.erase(subPathsRoot.m_ID);
+        }
+    }
+
+    bool OneSmallCaveTwicePolicy::TryVisit(const Cave& cave)
+    {
+        return !m_VisitedSmallCaves.contains(cave.m_ID) || (!cave.IsStart() && !m_SpecialCaveID.has_value());
+    }
+
+    void OneSmallCaveTwicePolicy::OnVisit(const Cave& cave)
+    {
+        if (m_VisitedSmallCaves.contains(cave.m_ID))
+        {
+            assert(!m_SpecialCaveID.has_value());
+            m_SpecialCaveID = cave.m_ID;
+        }
+        else if (cave.IsSmall())
+        {
+            m_VisitedSmallCaves.insert(cave.m_ID);
         }
     }
 }

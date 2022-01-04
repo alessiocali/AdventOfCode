@@ -34,41 +34,59 @@ namespace aoc2021::PassagePathing
     using Map = std::unordered_map<CaveID, Cave>;
     using Path = std::vector<CaveID>;
 
+    class ISearchPolicy
+    {
+    public:
+        virtual ~ISearchPolicy() = default;
+        virtual void Reset() = 0;
+        virtual void OnAllSubPathsExplored(const Cave& subPathsRoot) = 0;
+        virtual bool TryVisit(const Cave& cave) = 0;
+        virtual void OnVisit(const Cave& cave) = 0;
+    };
+
+    class SmallCavesOncePolicy final : public ISearchPolicy
+    {
+    public:
+        void Reset() override;
+        void OnAllSubPathsExplored(const Cave& subPathsRoot) override;
+        bool TryVisit(const Cave& cave) override;
+        void OnVisit(const Cave& cave) override;
+
+    private:
+        std::unordered_set<CaveID> m_VisitedSmallCaves { };
+    };
+
+    class OneSmallCaveTwicePolicy final : public ISearchPolicy
+    {
+    public:
+        void Reset() override;
+        void OnAllSubPathsExplored(const Cave& subPathsRoot) override;
+        bool TryVisit(const Cave& cave) override;
+        void OnVisit(const Cave& cave) override;
+
+    private:
+        std::unordered_set<CaveID> m_VisitedSmallCaves { };
+        std::optional<CaveID> m_SpecialCaveID;
+    };
+
     class PathSearcher final
     {
     public:
-        enum class SearchType
-        {
-            SmallCavesOnce,
-            OneSmallCaveTwice
-        };
-
-        std::size_t CountPaths(const Map& map, const SearchType searchType);
+        std::size_t CountPaths(const Map& map, ISearchPolicy& policy);
     
     private:
-        bool m_UseSpecialCave { false };
-
-        std::unordered_set<CaveID> m_VisitedSmallCaves { };
-        std::optional<CaveID> m_SpecialCaveID { };
-
         std::size_t m_FoundPaths { 0 };
         Path m_CurrentPath { };
 
         std::stack<CaveID> m_ExplorationHistory { };
 
-        void Reset(const SearchType searchType);
-
+        void Reset();
+        void ExploreCave(const Cave& nextCave, ISearchPolicy& policy);
         void EndReached();
-
         bool IsPathBack(const Cave& cave);
         void AllSubPathsExplored(const Cave& subPathsRoot);
-
-        bool IsAlreadyVisited(const Cave& cave) const;
-        bool TryVisitAgain(const Cave& cave);
         void AlreadyVisited();
-
-        // This is a valid sub-path. Expand all following nodes and keep trace of small caves.
-        void Expand(const Cave& cave);
+        void Visit(const Cave& cave);
     };
 
     class PassagePathingSolver : public ProblemSolver<std::string, std::size_t, std::size_t>
